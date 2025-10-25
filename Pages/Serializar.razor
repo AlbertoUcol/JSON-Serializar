@@ -1,0 +1,35 @@
+﻿@page "/serializar"
+
+<h3>Serialización JSON</h3>
+
+<button class="btn btn-primary" @onclick="SerializarObjeto">Serializar Objeto</button>
+
+<p><strong>Resultado JSON:</strong></p>
+<pre>@resultado</pre>
+
+@code {
+    private string resultado = "";
+
+    public class Empresa
+    {
+        public string Nombre { get; set; }
+        public string Producto { get; set; }
+        public int AñoFundacion { get; set; }
+    }
+
+    private void SerializarObjeto()
+    {
+        var empresa = new Empresa
+        {
+            Nombre = "Nexoview",
+            Producto = "Transmisor inalámbrico",
+            AñoFundacion = 2025
+        };
+
+        // Serializar objeto a JSON
+        resultado = System.Text.Json.JsonSerializer.Serialize(empresa, new System.Text.Json.JsonSerializerOptions
+        {
+            WriteIndented = true // formato legible
+        });
+    }
+}

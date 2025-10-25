@@ -1,0 +1,33 @@
+﻿@page "/deserializar"
+
+<h3>Deserialización JSON</h3>
+
+<button class="btn btn-success" @onclick="DeserializarObjeto">Deserializar JSON</button>
+
+<p><strong>Resultado del objeto:</strong></p>
+<pre>@resultado</pre>
+
+@code {
+    private string resultado = "";
+
+    public class Empresa
+    {
+        public string Nombre { get; set; }
+        public string Producto { get; set; }
+        public int AñoFundacion { get; set; }
+    }
+
+    private void DeserializarObjeto()
+    {
+        string json = @"{
+            ""Nombre"": ""Nexoview"",
+            ""Producto"": ""Transmisor inalámbrico"",
+            ""AñoFundacion"": 2025
+        }";
+
+        // Deserializar JSON a objeto
+        Empresa empresa = System.Text.Json.JsonSerializer.Deserialize<Empresa>(json);
+
+        resultado = $"Nombre: {empresa.Nombre}\nProducto: {empresa.Producto}\nAño de fundación: {empresa.AñoFundacion}";
+    }
+}
